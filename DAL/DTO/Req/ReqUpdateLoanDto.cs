@@ -11,7 +11,7 @@ namespace DAL.DTO.Req
     {
 
         [Required(ErrorMessage = "status is required")]
-        [MaxLength(30, ErrorMessage = "status cannot exceed 50 char")]
+        [MaxLength(50, ErrorMessage = "status cannot exceed 50 characters")]
         public string Status { get; set; }
     }
 }

@@ -36,19 +36,32 @@ namespace DAL.Repositores.Services
             return newLoan.BorrowerId;
         }
 
+
+
+
+
+
         public async Task<string> UpdateLoan(string id, ReqUpdateLoanDto updateLoanDto)
         {
+            var existingLoan = await _peerlandingContext.MstLoans.FindAsync(id);
 
-            var newLoan = new MstLoans
+            if (existingLoan == null)
             {
-                Status = updateLoanDto.Status,
-            };
+                throw new Exception("Loan not found");
+            }
 
-            await _peerlandingContext.AddAsync(newLoan);
+            existingLoan.Status = updateLoanDto.Status;
+            existingLoan.UpdateAt = DateTime.UtcNow; 
+
+            _peerlandingContext.MstLoans.Update(existingLoan);
             await _peerlandingContext.SaveChangesAsync();
 
-            return newLoan.BorrowerId;
+            return existingLoan.BorrowerId;
         }
+
+
+
+
 
 
         public async Task<List<ResListLoanDto>> LoanList()
@@ -68,6 +81,10 @@ namespace DAL.Repositores.Services
                 }).ToListAsync();
             return loans;
         }
+
+
+
+
 
 
         public async Task<List<ResListLoanDto>> GetStatus(string status)
