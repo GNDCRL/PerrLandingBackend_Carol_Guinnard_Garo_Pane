@@ -19,6 +19,9 @@ public partial class PeerlandingContext : DbContext
     public virtual DbSet<MstUser> MstUsers { get; set; }
     public virtual DbSet<MstLoans> MstLoans { get; set; }
     public virtual DbSet<TrnFunding> TrnFunding { get; set; }
+    public virtual DbSet<TrnRepayment> TrnRepayment { get; set; }
+
+    public virtual DbSet<TrnDebtBills> TrnDebtBills { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=ConnectionStrings:DefaultConnection");

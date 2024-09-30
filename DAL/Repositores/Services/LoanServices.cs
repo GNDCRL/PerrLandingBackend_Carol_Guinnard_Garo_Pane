@@ -1,4 +1,6 @@
 ﻿using DAL.DTO.Req;
+using DAL.DTO.Req.ReqLoan;
+using DAL.DTO.Req.ReqLoanBorrower;
 using DAL.DTO.Res;
 using DAL.Model;
 using DAL.Repositores.Services.Interfaces;
@@ -20,6 +22,9 @@ namespace DAL.Repositores.Services
         }
 
 
+
+        // old aja
+
         public async Task<string> CreateLoan(ReqLoanDto loan)
         {
             var newLoan = new MstLoans
@@ -35,10 +40,6 @@ namespace DAL.Repositores.Services
 
             return newLoan.BorrowerId;
         }
-
-
-
-
 
 
         public async Task<string> UpdateLoan(string id, ReqUpdateLoanDto updateLoanDto)

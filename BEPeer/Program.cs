@@ -80,6 +80,8 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
 
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILoanService, LoanServices>();
+builder.Services.AddScoped<ILenderService, LenderServices>();
+builder.Services.AddScoped<IBorrowerService, BorrowerService>();
 
 
 

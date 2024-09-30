@@ -25,6 +25,7 @@ namespace DAL.Repositores.Services
             _context = context;
             _configuration = configuration;
         }
+
         public async Task<string> Register(ReqRegisterUserDto register)
         {
             var isAnyEmail = await _context.MstUsers.SingleOrDefaultAsync(e => e.Email == register.Email);
@@ -141,7 +142,7 @@ namespace DAL.Repositores.Services
 
 
 
-        public async Task<string> DeleteUser(string userId, ReqDeleteUserDto reqDeleteUserDto)
+        public async Task<string> DeleteUser(string userId)
         {
             var user = await _context.MstUsers.FindAsync(userId);
             if (user == null)
@@ -153,6 +154,28 @@ namespace DAL.Repositores.Services
             await _context.SaveChangesAsync();
 
             return "User deleted successfully.";
+        }
+
+
+        public async Task<ResByIdUser> GetUserId(string userId)
+        {
+            // Cari pengguna berdasarkan userId
+            var user = await _context.MstUsers
+                .Where(u => u.Id == userId)  
+                .Select(user => new ResByIdUser
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Role = user.Role,
+                    Balance = user.Balance ?? 0,  
+                }).FirstOrDefaultAsync();  
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return user;
         }
 
 
@@ -206,6 +229,7 @@ namespace DAL.Repositores.Services
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
     }
 }

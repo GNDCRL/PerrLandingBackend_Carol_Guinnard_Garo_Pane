@@ -44,6 +44,8 @@ namespace DAL.Model
         public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 
 
+
+
         public MstUser User { get; set; }
 
     }

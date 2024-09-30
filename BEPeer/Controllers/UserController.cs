@@ -73,7 +73,29 @@ namespace BEPeer.Controllers
             }
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> GetUserId(string userId)
+        {
+            try
+            {
+                var users = await _userservices.GetUserId(userId);
+                return Ok(new ResBaseDto<ResByIdUser>
+                {
+                    Success = true,
+                    Message = "List of users",
+                    Data = users
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResBaseDto<List<ResUserDto>>
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    Data = null
+                });
+            }
+        }
 
         [HttpGet]
         [Authorize]
@@ -200,11 +222,11 @@ namespace BEPeer.Controllers
 
 
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteUser(string id, [FromBody] ReqDeleteUserDto deleteDto)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             try
             {
-                var result = await _userservices.DeleteUser(id, deleteDto);
+                var result = await _userservices.DeleteUser(id);
                 return Ok(new { success = true, message = result });
             }
             catch (Exception ex)

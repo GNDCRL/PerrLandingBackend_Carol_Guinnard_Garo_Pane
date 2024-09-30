@@ -21,10 +21,10 @@ namespace DAL.Repositores.Services.Interfaces
 
         Task<string> AddUser(ReqRegisterUserDto registerUserDto);
 
-        Task<string> DeleteUser(string userId, ReqDeleteUserDto deleteDto);
+        Task<string> DeleteUser(string userId);
         // Di implementasi UserServices
 
-
+        Task<ResByIdUser> GetUserId(string userId);
 
     }
 }
